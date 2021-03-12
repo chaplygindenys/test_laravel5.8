@@ -12,5 +12,5 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('users',['users' =>\Illuminate\Support\Facades\DB::table('users')->get()]);
 });

@@ -1,30 +1,29 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
+use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
 
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * @param Faker $kolbasa
      */
-    public function run()
+    public function run(Faker $kolbasa)
     {
-        $faker = Faker::create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
 
-           \Illuminate\Support\Facades\DB::table('users')->insert([
+          DB::table('users')->insert([
 
-             'name'=>$faker->name,
-            'firstname'=>$faker->firstName,
-            'lastname'=>$faker->lastName,
-            'role'=>$faker->randomElement(['admin','user']),
-            'gender'=>$faker->randomElement(['male','female']),
-            'email'=>$faker->unique()->email,
-            'active'=>$faker->boolean(60),
+             'name'=>$kolbasa->name,
+            'firstname'=>$kolbasa->firstName,
+            'lastname'=>$kolbasa->lastName,
+            'salary'=>$kolbasa->randomFloat(2,100,5000),
+            'role'=>$kolbasa->randomElement(['admin','user']),
+            'gender'=>$kolbasa->randomElement(['male','female']),
+            'email'=>$kolbasa->unique()->email,
+            'active'=>$kolbasa->boolean(60),
             'password'=>bcrypt('secret'),
                'created_at'=>now(),
                'updated_at'=>now(),
