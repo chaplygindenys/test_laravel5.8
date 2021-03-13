@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('users',['users' =>\Illuminate\Support\Facades\DB::table('users')->get()]);
-});
+});*/
+ \Illuminate\Support\Facades\Route::resource('posts','PostController');

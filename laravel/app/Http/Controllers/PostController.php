@@ -4,17 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
-class PostController extends Controller
+class   PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function index()
+    public function index(Post $objectPost)
     {
-        //
+
+   /* dump($hruk->all());*/
+        /* return Post::all();*/
+
+        return  view('posts.index',[
+            'posts'=>$objectPost->all(),
+            'x'=>'value'
+
+        ]);
+
+
+
     }
 
     /**
@@ -24,7 +36,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+       return view('posts.create');
     }
 
     /**
@@ -33,9 +45,13 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Post $post)
     {
-        //
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->body = $request->body;
+        $post->save();
+
     }
 
     /**
@@ -46,7 +62,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return $post;
     }
 
     /**
@@ -57,7 +73,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit',[
+            'post'=>$post
+        ]);
     }
 
     /**
@@ -69,7 +87,11 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->body = $request->body;
+        $post->save();
+
     }
 
     /**
@@ -80,6 +102,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+       $post->delete();
     }
 }
