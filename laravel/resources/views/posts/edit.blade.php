@@ -16,29 +16,26 @@
               <li class="sidebar-menu-item" ><a class="sidebar-menu-link" href="{{route('posts.index')}}">Posts</a></li>
               <li class="sidebar-menu-item" ><a class="sidebar-menu-link" href="#">Users</a></li>
           </ul>
-
-
         </div>
-        <div class="col-9">
-            <h1>Posts</h1>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>title</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                @forelse($posts as $post)
-                    <tr>
-                        <td>{{$post->id}}</td>
-                        <td>{{$post->title}}</td>
-                        <td><a href="{{route('posts.edit',['id'=>$post->id])}}">Edit</a></td>
-                    </tr>
-                @empty
-                    <div>No posts yet!!!</div>
-                @endforelse
-            </table>
+
+       <div class="col-9">
+            <h1>Post </h1>
+            <p>{{$post->title}}</p>
+        <hr />
+            <form action="{{route('posts.update', ['id'=>$post->id])}}" method="POST">
+                @method('PUT')
+                <div class="form-group">
+                    <label for="title">Post title</label>
+                    <input type="text" class="form-control" id="title"  value="{{$post->title}}" name="title" >
+                </div>
+
+                <div class="form-group">
+                    <label for="body">Post body:</label>
+                    <textarea class="form-control" id="body" rows="3" name="body">{{$post->body}}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
         </div>
     </div>
 </div>

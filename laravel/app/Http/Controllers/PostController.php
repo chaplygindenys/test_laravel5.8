@@ -52,6 +52,8 @@ class   PostController extends Controller
         $post->body = $request->body;
         $post->save();
 
+
+
     }
 
     /**
@@ -92,6 +94,11 @@ class   PostController extends Controller
         $post->body = $request->body;
         $post->save();
 
+        return view('posts.edit',[
+            'post'=>$post
+        ]);
+
+        return  redirect()->route('posts.edit',['id'=>$post->id]);
     }
 
     /**
