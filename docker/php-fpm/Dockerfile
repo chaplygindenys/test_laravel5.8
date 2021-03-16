@@ -110,11 +110,11 @@ WORKDIR /www
 # Install composer
 # Link composer cache into project folder
 #
-ARG COMPOSER_VERSION=1.8.5
+ARG COMPOSER_VERSION=2.0.11
 
 RUN set -xe \
 		&& echo -e "\n[www]\nuser = $DOCKER_USER\ngroup = $DOCKER_USER" >> /usr/local/etc/php-fpm.d/zz-docker.conf \
-		&& echo -e "memory_limit=256M\n" > /usr/local/etc/php/conf.d/memory.ini \
+		&& echo -e "memory_limit=-1\n" > /usr/local/etc/php/conf.d/memory.ini \
 		&& curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=$COMPOSER_VERSION \
 		&& ln -s $(pwd)/.composer /home/$DOCKER_USER/.composer
 
